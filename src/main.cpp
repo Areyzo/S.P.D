@@ -5,9 +5,9 @@
 #include"upgradebutton.hpp"
 #include"backbutton.hpp"
 #include"tutorial1_control.hpp"
+#include"game.hpp"
 
-
-typedef  enum ScreenChanger {MAIN,UPGRADE,TUTORIAL1,TUTORIAL2,GAME} ScreenChanger;
+typedef  enum ScreenChanger {MAIN,UPGRADE,TUTORIAL1,TUTORIAL2,GAME } ScreenChanger;
 
 int main()
 {
@@ -80,12 +80,7 @@ int main()
             }break;
             case GAME:
             {
-                continuebutton.update();
-                if(continuebutton.screenChanger)
-                {
-                    screenchanger=MAIN;
-                    continuebutton.reset();
-                }
+                screenchanger=MAIN;
             }break;
             default:break;
         }
@@ -124,8 +119,8 @@ int main()
             }
             case GAME:
             {
-                DrawText("GAME SCREEN",0,0,25,WHITE);
-                continuebutton.draw();
+                game();
+                std::cout<<"back"<<std::endl;
                 break;
             }
             default:break;
