@@ -20,7 +20,9 @@ void mainscreen::draw()
 
 void mainscreen::update()
 {
-    framecounter1++;
+    if(!animationdone)
+    {
+        framecounter1++;
     if(!upperframedone && framecounter1 >= 60 / 10)
     {
         if(upperframewidth <= image.width)
@@ -62,6 +64,7 @@ void mainscreen::update()
     }
     if(lowerframewidth >= (image.width - image.width / upperframe))
         {
-            upperframedone = false;
+            animationdone=true;  
         }
+    }
 }

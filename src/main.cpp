@@ -6,7 +6,7 @@
 #include"backbutton.hpp"
 #include"tutorial1_control.hpp"
 #include "mainscreen.hpp"
-//#include"game.hpp"
+#include"game.hpp"
 
 typedef  enum ScreenChanger {MAIN,UPGRADE,TUTORIAL1,TUTORIAL2,GAME } ScreenChanger;
 
@@ -124,7 +124,7 @@ int main()
             }
             case GAME:
             {
-                //game();
+                game();
                 DrawText("GAME SCREEN",0,0,25,WHITE);
                 std::cout<<"back"<<std::endl;
                 break;

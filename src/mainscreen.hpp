@@ -22,4 +22,5 @@ class mainscreen
     void draw();
     void update();
     bool upperframedone=false;
+    bool animationdone=false;
 };
