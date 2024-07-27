@@ -1,33 +1,52 @@
 #include "tutorial1_control.hpp"
-#include<iostream>
 
-void tutorial1::draw()
+TutorialPlayer::TutorialPlayer()
 {
-    DrawText("WELCOME TO TUTORIAL SCREEN 1",700,0,25,WHITE);
-    DrawText("Press A KEY to move in -x and press D KEY to move in +x",0,50,25,WHITE);
-    DrawRectangleRec(control,BLUE);
+    image=LoadTexture("Graphics/ship3.png");
+    InitialRectangle={0.f,0.f,(float)image.width/noofframes,(float)image.height};
+    FinalRectangle ={800,400,((float)image.width/noofframes*2.0f),(float)image.height*2.0f};
 }
 
-void tutorial1::update()
+TutorialPlayer::~TutorialPlayer()
 {
-    if(IsDPressed())
+    UnloadTexture(image);
+}
+
+void TutorialPlayer::draw()
+{
+    DrawTexturePro(image,InitialRectangle,FinalRectangle,Vector2{0,0},0.0f,WHITE);
+}
+
+void TutorialPlayer::animation()
+{
+    frameCounter++;
+    if(frameCounter>=60/5)
     {
-        control.x+=speed;
-        std::cout<<"The D Button is pressed\n";
+        currentFrame++;
+        frameCounter=0;
+        if(currentFrame>noofframes-1)
+        {
+            currentFrame=0;
+        }
+        InitialRectangle.x=((image.width*currentFrame)/noofframes);
+        currentFrame++;
     }
-    if(IsAPressed())
+}
+
+void TutorialPlayer::update()
+{
+    if(IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT))//left
     {
-        control.x-=speed;
-        std::cout<<"The A Button is pressed\n";
+        FinalRectangle.x-=speed;
+        if(FinalRectangle.x==0)
+        {
+            FinalRectangle.x=0;
+
+        }
+    }
+    if(IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT))
+    {
+        FinalRectangle.x+=speed;
     }
 }
 
-bool tutorial1::IsAPressed()
-{
-    return (IsKeyDown(KEY_A));
-}
-
-bool tutorial1::IsDPressed()
-{
-    return (IsKeyDown(KEY_D));
-}

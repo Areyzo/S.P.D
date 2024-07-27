@@ -5,7 +5,8 @@
 #include"upgradebutton.hpp"
 #include"backbutton.hpp"
 #include"tutorial1_control.hpp"
-#include"game.hpp"
+#include "mainscreen.hpp"
+//#include"game.hpp"
 
 typedef  enum ScreenChanger {MAIN,UPGRADE,TUTORIAL1,TUTORIAL2,GAME } ScreenChanger;
 
@@ -23,7 +24,8 @@ int main()
     continuebutton continuebutton;
     upgradebutton upgrade;
     backbutton back;
-    tutorial1 tut1;
+    TutorialPlayer tut1;
+    mainscreen m;
 
     SetTargetFPS(60);
     while(WindowShouldClose()==false)
@@ -91,6 +93,8 @@ int main()
             case MAIN:
             {
                 DrawText("MAIN SCREEN",0,0,25,WHITE);
+                m.draw();
+                m.update();
                 play.draw();
                 upgrade.draw();
                 break;
@@ -107,6 +111,7 @@ int main()
                 skip.draw();
                 continuebutton.draw();
                 tut1.draw();
+                tut1.animation();
                 tut1.update();
                 break;
             }
@@ -119,7 +124,8 @@ int main()
             }
             case GAME:
             {
-                game();
+                //game();
+                DrawText("GAME SCREEN",0,0,25,WHITE);
                 std::cout<<"back"<<std::endl;
                 break;
             }

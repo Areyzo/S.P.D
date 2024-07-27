@@ -1,13 +1,26 @@
 #pragma once
 #include<raylib.h>
 
-class tutorial1
+class TutorialPlayer
 {
     public:
+    TutorialPlayer();
+    ~TutorialPlayer();
+    Rectangle rect;
+    int speed=8;
+    bool active;
+    Color color;
+    Texture2D image;
+    Rectangle frameRec;
+    Rectangle hitbox;
+    Rectangle InitialRectangle;
+    Rectangle FinalRectangle;
+    int currentFrame;
+    int frameCounter;
+    int frameSpeed;  
+    int noofframes=3;
     void draw();
-    Rectangle control={800.0f,400.0f,200,150};
-    const int speed=5;
+    void animation();
     void update();
-    bool IsAPressed();    
-    bool IsDPressed();
+
 };

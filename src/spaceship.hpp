@@ -14,8 +14,10 @@ class SpaceShip
     Rectangle hitbox;
     int currentFrame;
     int frameCounter;
-    int frameSpeed;
+    int noofframes=3;
+    int frameSpeed=5;
     void draw();
     void update();
-
+    Rectangle InitialRectangle;
+    Rectangle FinalRectangle;
 };
