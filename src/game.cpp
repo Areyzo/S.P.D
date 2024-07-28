@@ -8,8 +8,6 @@
 #include<iostream>
 
 
-
-
 //defines
 #define NUM_BULLET 50
 #define NUM_OBSTACLES 50
@@ -35,18 +33,41 @@ static Obstacle obstacles[NUM_OBSTACLES];
 std::vector<Explosion> explosions;
 
 static int shootRate;
-static int activeobstacle;
-int x, y;
+static int activeobstacle;;
 Texture2D explosionTexture;
+//background
+float scrollingBack = 0.0f;
+float scroll1 = 0.0f;
+float scroll2 = 0.0f;
+float scroll3 = 0.0f;
+Texture2D background;
+Texture2D bg1;
+Texture2D bg2;
+Texture2D bg3;
+
 
 //sounds
 Sound fxexplosion;
 Sound fxbullet;
+float scale;
+float scale1;
+float scale2;
+float scale3;
 
 
 void InitGame(){
+
+    
+    background = LoadTexture("Graphics/gameres/bg.png");
+    bg1 = LoadTexture("Graphics/gameres/bg1.png");
+    bg2 = LoadTexture("Graphics/gameres/bg2.png");
+    bg3 = LoadTexture("Graphics/gameres/bg3.png");
     shootRate = 0;
     activeobstacle = 5;
+    scale = screenHeight/background.height; 
+    scale1 = screenHeight/bg1.height; 
+    scale2 = screenHeight/bg2.height;
+    scale3 = screenHeight/bg3.height;  
 
     //initilize player
     player.rect.x = 800;
@@ -151,6 +172,15 @@ void InitGame(){
 };
 void UpdateGame(void){
 
+    //background moving
+    scrollingBack = scrollingBack+0.2f;
+     if (scrollingBack >= background.height*scale) scrollingBack = -background.height*scale;
+     scroll1 += 0.4f;
+     if (scroll2 >= bg1.height*scale) scroll1 = -bg1.height*2;
+     scroll2 += 0.6f;
+     if (scroll2 >= bg2.height*scale) scroll2 = -bg2.height*2;
+
+    //score system
     score++;
       // Increase difficulty every 1000 points
     if (score % 1000 == 0) {
@@ -306,13 +336,22 @@ void DrawGame(void){
 
     ClearBackground(BLACK);
 
+    //drawing background
+     DrawTextureEx(background, (Vector2){ 0, scrollingBack}, 0.0f, scale, WHITE);
+     DrawTextureEx(background, (Vector2){0, -background.height*scale + scrollingBack }, 0.0f, scale, WHITE);
+     DrawTextureEx(bg1, (Vector2){ 0, scroll1}, 0.0f, scale1, WHITE);
+     DrawTextureEx(bg1, (Vector2){0, -bg1.height*scale1 + scroll1 }, 0.0f, scale1, WHITE);
+     DrawTextureEx(bg2, (Vector2){ 0, scroll2}, 0.0f, scale2, WHITE);
+     DrawTextureEx(bg2, (Vector2){0, -bg2.height*scale2 + scroll2 }, 0.0f, scale2, WHITE);
+     DrawTextureEx(bg3, (Vector2){ 0, 0}, 0.0f, scale3, WHITE);
+    
     //drawing player
      DrawRectangleRec(player.hitbox,CLITERAL(Color){ 255, 255, 255, 1 });
      DrawTexturePro(
         player.texture, 
         player.frameRec, 
         (Rectangle){player.rect.x, player.rect.y, player.rect.width, player.rect.height}, 
-        (Vector2){0, 0}, 
+        (Vector2){0, 0},  
         0.0f, 
         WHITE
     );
@@ -379,6 +418,7 @@ void UnloadGame(void){
         UnloadTexture(obstacles[i].texture);
     }
        UnloadTexture(explosionTexture);
+         UnloadTexture(background);
        //unload sounds
        UnloadSound(fxexplosion);
        UnloadSound(fxbullet);
@@ -408,22 +448,10 @@ int game(){
     InitGame();
 
 
-    while (!gameOver)//
+    while (!gameOver && !WindowShouldClose())//
     {
         UpdateDrawFrame();
        
-    }
-
-    if (gameOver) {
-        //while (!WindowShouldClose()) {
-            // Final draw to show game over screen
-        // BeginDrawing();
-        // ClearBackground(BLACK);
-        // DrawText("Game Over!", screenWidth / 2 - MeasureText("Game Over!", 40) / 2, screenHeight / 2 - 20, 40, RED);
-        // EndDrawing();
-        std::cout<<"Game Over\n";
-        //break;
-        //}
     }
     UnloadGame();
     CloseAudioDevice();
