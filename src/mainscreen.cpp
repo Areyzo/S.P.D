@@ -6,17 +6,39 @@ mainscreen::mainscreen()
     image=LoadTexture("Graphics/earth.png");
     InitialRectangle={0.0f,0.0f,(float)image.width/upperframe,(float)image.height/2};
     FinalRectangle={600.0f,0.0f,(float)image.width/upperframe*3.0f,(float)image.height/2*3.0f};
+
+    leftarrow=LoadTexture("Graphics/leftarrow.png");
+    InitialRectangle1={0.0f,0.0f,(float)leftarrow.width/noofframes,(float)leftarrow.height};
+    FinalRectangle1={600.0f,150.0f,(float)leftarrow.width/noofframes*3.0f,(float)leftarrow.height*3.0f};
+    std::cout<<"The left arrow is displayed\n";
+
+    rightarrow=LoadTexture("Graphics/rightarrow.png");
+    InitialRectangle2={0.0f,0.0f,(float)rightarrow.width/noofframes,(float)rightarrow.height};
+    FinalRectangle2={900.0f,150.0f,(float)rightarrow.width/noofframes*3.0f,(float)rightarrow.height*3.0f};
+    std::cout<<"The right arrow is displayed\n";
+
+    saturn=LoadTexture("Graphics/saturnimage.png");
+    SInitialRectangle={0.0f,0.0f,(float)saturn.width/noofplaneframes,(float)saturn.height};
+    SFinalRectangle={600.0f,0.0f,(float)saturn.width/noofplaneframes*3.0f,(float)saturn.height*3.0f};
+
+    jupiter=LoadTexture("Graphics/Ajupiter.png");
+    JInitialRectangle={0.0f,0.0f,(float)jupiter.width/noofplaneframes,(float)jupiter.height};
+    JFinalRectangle={600.0f,0.0f,(float)jupiter.width/noofplaneframes*3.0f,(float)jupiter.height*3.0f};
 }
 
 mainscreen::~mainscreen()
 {
     UnloadTexture(image);
+    UnloadTexture(leftarrow);
+    UnloadTexture(rightarrow);
+    UnloadTexture(saturn);
 }
 
 void mainscreen::draw()
 {
     DrawTexturePro(image,InitialRectangle,FinalRectangle,Vector2{0,0},0.0f,WHITE);
 }
+
 
 void mainscreen::update()
 {
@@ -67,4 +89,115 @@ void mainscreen::update()
             animationdone=true;  
         }
     }
+}
+
+
+void mainscreen::draw_arrows()
+{
+    InitialRectangle1.x=currentframe*leftarrow.width/noofframes;
+    DrawTexturePro(leftarrow,InitialRectangle1,FinalRectangle1,Vector2{0,0},0,WHITE);
+
+    InitialRectangle2.x=currentframe*rightarrow.width/noofframes;
+    DrawTexturePro(rightarrow,InitialRectangle2,FinalRectangle2,Vector2{0,0},0,WHITE);
+
+}
+
+
+
+void mainscreen::update_arrows()
+{
+    if (IsLeftArrowPressed(FinalRectangle1))
+    {
+        counter--;
+        if (counter < 1)
+        {
+            counter = 3;
+        }
+    }
+    if (IsRightArrowPressed(FinalRectangle2))
+    {
+        counter++;
+        if (counter > 3)
+        {
+            counter = 1;
+        }
+    }
+}
+
+void mainscreen::draw_text()
+{
+    switch (counter)
+    {
+        case 1:
+            draw();
+            DrawText("EARTH", 650, 150, 25, WHITE);
+            break;
+        case 2:
+            saturn_update();
+            saturn_draw();
+            DrawText("SATURN", 650, 150, 25, WHITE);
+            break;
+        case 3:
+            jupiter_update();
+            jupiter_draw();
+            DrawText("JUPITER", 650, 150, 25, WHITE);
+            break;
+    }
+}
+
+void mainscreen::saturn_draw()
+{
+    DrawTexturePro(saturn,SInitialRectangle,SFinalRectangle,Vector2{0,0},0.0f,WHITE);
+}
+
+void mainscreen::saturn_update()
+{
+    if(!saturnanimationdone)
+    {
+        Saturnframecounter++;
+        if(Saturnframecounter>=60/10)
+        {
+            Saturnframecounter=0;
+            SInitialRectangle.x=(SaturnCurrentFrame*saturn.width)/noofplaneframes;
+            SaturnCurrentFrame++;
+            if(SaturnCurrentFrame>noofplaneframes-1)
+            {
+                saturnanimationdone=true;
+            }
+        }
+    }
+}
+
+void mainscreen::jupiter_draw()
+{
+    DrawTexturePro(jupiter,JInitialRectangle,JFinalRectangle,Vector2{0,0},0.0f,WHITE);
+
+}
+
+void mainscreen::jupiter_update()
+{
+    if(!jupiteranimationdone)
+    {
+        JupiterFrameCounter++;
+        if(JupiterFrameCounter>=60/10)
+        {
+            JupiterFrameCounter=0;
+            JInitialRectangle.x=(JupiterCurrentFrame*jupiter.width)/noofplaneframes;
+            JupiterCurrentFrame++;
+            if(JupiterCurrentFrame>noofplaneframes-1)
+            {
+                jupiteranimationdone=true;
+            }
+        }
+    }
+}
+
+bool mainscreen::IsLeftArrowPressed(Rectangle rect)
+{
+    return (CheckCollisionPointRec(GetMousePosition(),rect) && (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)));
+}
+
+bool mainscreen::IsRightArrowPressed(Rectangle rect)
+{
+    return (CheckCollisionPointRec(GetMousePosition(),rect) && (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)));
 }

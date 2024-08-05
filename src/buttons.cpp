@@ -38,8 +38,8 @@ void button::reset()
 {
     currentframe = 0;
     clickState = false;
-    hoverState = false;
     clicktime1 = 0.0f;
     clicktime2=0.0f;
     screenChanger = false;
+    screenchange=false;
 }

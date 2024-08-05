@@ -2,11 +2,11 @@
 #include<iostream>
 #include <raylib.h>
 #include"buttons.hpp"
-class playbutton:public button
+
+class optionbutton:public button
 {      
     public:
-    playbutton();
-    ~playbutton();
+    optionbutton();
+    ~optionbutton();
     void draw() override;
 };
-

@@ -7,15 +7,14 @@
 #include"tutorial1_control.hpp"
 #include "mainscreen.hpp"
 #include"game.hpp"
+#include"optionbutton.hpp"
 
-typedef  enum ScreenChanger {MAIN,UPGRADE,TUTORIAL1,TUTORIAL2,GAME } ScreenChanger;
+typedef  enum ScreenChanger {MAIN,UPGRADE,OPTION,TUTORIAL1,TUTORIAL2,GAME } ScreenChanger;
 
 int main()
 {
     const int screenwidth=1600.0f;
     const int screenheight=800.0f;
-    // const int screenwidth=1800.0f;
-    // const int screenheight=1600.0f;
     InitWindow(screenwidth,screenheight,"Play Button Checker");
 
     ScreenChanger screenchanger=MAIN;
@@ -26,6 +25,7 @@ int main()
     backbutton back;
     TutorialPlayer tut1;
     mainscreen m;
+    optionbutton option;
 
     SetTargetFPS(60);
     while(WindowShouldClose()==false)
@@ -46,6 +46,12 @@ int main()
                     screenchanger=UPGRADE;
                     upgrade.reset();
                 }
+                option.update();
+                if(option.screenChanger)
+                {
+                    screenchanger=MAIN;
+                    option.reset();
+                }
             }break;
             case UPGRADE:
             {  
@@ -55,6 +61,16 @@ int main()
                     screenchanger=MAIN;
                     back.reset();
                 }
+            }break;
+            case OPTION:
+            {
+                back.update();
+                if(back.screenChanger)
+                {
+                    screenchanger=MAIN;
+                    back.reset();
+                }
+
             }break;
             case TUTORIAL1:
             {
@@ -93,15 +109,24 @@ int main()
             case MAIN:
             {
                 DrawText("MAIN SCREEN",0,0,25,WHITE);
-                m.draw();
                 m.update();
+                m.draw_arrows();
+                m.update_arrows();
+                m.draw_text();
                 play.draw();
                 upgrade.draw();
+                option.draw();
                 break;
              }
             case UPGRADE:
             {
                 DrawText("UPGRADE SCREEN",0,0,25,WHITE);
+                back.draw();
+                break;
+            }
+            case OPTION:
+            {
+                DrawText("OPTION SCREEN",0,0,25,WHITE);
                 back.draw();
                 break;
             }
