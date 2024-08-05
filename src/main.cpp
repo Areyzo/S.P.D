@@ -110,7 +110,6 @@ int main()
             {
                 DrawText("MAIN SCREEN",0,0,25,WHITE);
                 m.update();
-                m.draw_arrows();
                 m.update_arrows();
                 m.draw_text();
                 play.draw();

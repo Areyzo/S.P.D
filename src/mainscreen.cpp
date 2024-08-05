@@ -9,12 +9,22 @@ mainscreen::mainscreen()
 
     leftarrow=LoadTexture("Graphics/leftarrow.png");
     InitialRectangle1={0.0f,0.0f,(float)leftarrow.width/noofframes,(float)leftarrow.height};
-    FinalRectangle1={600.0f,150.0f,(float)leftarrow.width/noofframes*3.0f,(float)leftarrow.height*3.0f};
+    FinalRectangle1={600.0f,50.0f,(float)leftarrow.width/noofframes*3.0f,(float)leftarrow.height*3.0f};
     std::cout<<"The left arrow is displayed\n";
 
     rightarrow=LoadTexture("Graphics/rightarrow.png");
+
+    //Earth Right Arrow
     InitialRectangle2={0.0f,0.0f,(float)rightarrow.width/noofframes,(float)rightarrow.height};
-    FinalRectangle2={900.0f,150.0f,(float)rightarrow.width/noofframes*3.0f,(float)rightarrow.height*3.0f};
+    FinalRectangle2={840.0f,50.0f,(float)rightarrow.width/noofframes*3.0f,(float)rightarrow.height*3.0f};
+
+    //Saturn Right Arrow
+    InitialRectangle3={0.0f,0.0f,(float)rightarrow.width/noofframes,(float)rightarrow.height};
+    FinalRectangle3={890.0f,50.0f,(float)rightarrow.width/noofframes*3.0f,(float)rightarrow.height*3.0f};
+
+    //Jupiter Right Arrow
+    InitialRectangle4={0.0f,0.0f,(float)rightarrow.width/noofframes,(float)rightarrow.height};
+    FinalRectangle4={930.0f,50.0f,(float)rightarrow.width/noofframes*3.0f,(float)rightarrow.height*3.0f};
     std::cout<<"The right arrow is displayed\n";
 
     saturn=LoadTexture("Graphics/saturnimage.png");
@@ -24,6 +34,19 @@ mainscreen::mainscreen()
     jupiter=LoadTexture("Graphics/Ajupiter.png");
     JInitialRectangle={0.0f,0.0f,(float)jupiter.width/noofplaneframes,(float)jupiter.height};
     JFinalRectangle={600.0f,0.0f,(float)jupiter.width/noofplaneframes*3.0f,(float)jupiter.height*3.0f};
+
+    Earth=LoadTexture("Graphics/earth616.png");
+    EIR={0.0f,0.0f,(float)Earth.width,(float)Earth.height};
+    EFR={650.f,50.0f,(float)Earth.width*3.f,(float)Earth.height*3};
+    std::cout<<"The image width of earth is "<<Earth.width<<std::endl;
+
+    Saturn=LoadTexture("Graphics/saturn.png");
+    SIR={0.0f,0.0f,(float)Saturn.width,(float)Saturn.height};
+    SFR={650.f,50.0f,(float)Saturn.width*3,(float)Saturn.height*3};
+    
+    Jupiter=LoadTexture("Graphics/jupiter.png");
+    JIR={0.0f,0.0f,(float)Jupiter.width,(float)Jupiter.height};
+    JFR={650.f,50.0f,(float)Jupiter.width*3,(float)Jupiter.height*3};
 }
 
 mainscreen::~mainscreen()
@@ -32,11 +55,22 @@ mainscreen::~mainscreen()
     UnloadTexture(leftarrow);
     UnloadTexture(rightarrow);
     UnloadTexture(saturn);
+    UnloadTexture(Earth);
+    UnloadTexture(Saturn);
+    UnloadTexture(Jupiter);
 }
 
 void mainscreen::draw()
 {
+    InitialRectangle1.x=currentframe*leftarrow.width/noofframes;
+    DrawTexturePro(leftarrow,InitialRectangle1,FinalRectangle1,Vector2{0,0},0,WHITE);
+
+    InitialRectangle2.x=currentframe*rightarrow.width/noofframes;
+    DrawTexturePro(rightarrow,InitialRectangle2,FinalRectangle2,Vector2{0,0},0,WHITE);
+
     DrawTexturePro(image,InitialRectangle,FinalRectangle,Vector2{0,0},0.0f,WHITE);
+    DrawTexturePro(Earth,EIR,EFR,Vector2{0,0},0.0f,WHITE);
+
 }
 
 
@@ -92,20 +126,10 @@ void mainscreen::update()
 }
 
 
-void mainscreen::draw_arrows()
-{
-    InitialRectangle1.x=currentframe*leftarrow.width/noofframes;
-    DrawTexturePro(leftarrow,InitialRectangle1,FinalRectangle1,Vector2{0,0},0,WHITE);
-
-    InitialRectangle2.x=currentframe*rightarrow.width/noofframes;
-    DrawTexturePro(rightarrow,InitialRectangle2,FinalRectangle2,Vector2{0,0},0,WHITE);
-
-}
-
-
-
 void mainscreen::update_arrows()
 {
+    bool rightPressed = false;
+
     if (IsLeftArrowPressed(FinalRectangle1))
     {
         counter--;
@@ -114,13 +138,32 @@ void mainscreen::update_arrows()
             counter = 3;
         }
     }
-    if (IsRightArrowPressed(FinalRectangle2))
+    if (IsRightArrowPressed(FinalRectangle2) && !rightPressed)
     {
         counter++;
         if (counter > 3)
         {
             counter = 1;
         }
+        rightPressed = true;
+    }
+    if (IsRightArrowPressed(FinalRectangle3) && !rightPressed)
+    {
+        counter++;
+        if (counter > 3)
+        {
+            counter = 1;
+        }
+        rightPressed = true;
+    }
+    if (IsRightArrowPressed(FinalRectangle4) && !rightPressed)
+    {
+        counter++;
+        if (counter > 3)
+        {
+            counter = 1;
+        }
+        rightPressed = true;
     }
 }
 
@@ -130,24 +173,28 @@ void mainscreen::draw_text()
     {
         case 1:
             draw();
-            DrawText("EARTH", 650, 150, 25, WHITE);
             break;
         case 2:
             saturn_update();
             saturn_draw();
-            DrawText("SATURN", 650, 150, 25, WHITE);
             break;
         case 3:
             jupiter_update();
             jupiter_draw();
-            DrawText("JUPITER", 650, 150, 25, WHITE);
             break;
     }
 }
 
 void mainscreen::saturn_draw()
 {
+    InitialRectangle1.x=currentframe*leftarrow.width/noofframes;
+    DrawTexturePro(leftarrow,InitialRectangle1,FinalRectangle1,Vector2{0,0},0,WHITE);
+
+    InitialRectangle3.x=currentframe*rightarrow.width/noofframes;
+    DrawTexturePro(rightarrow,InitialRectangle3,FinalRectangle3,Vector2{0,0},0,WHITE);
+
     DrawTexturePro(saturn,SInitialRectangle,SFinalRectangle,Vector2{0,0},0.0f,WHITE);
+    DrawTexturePro(Saturn,SIR,SFR,Vector2{0,0},0.0f,WHITE);
 }
 
 void mainscreen::saturn_update()
@@ -170,7 +217,14 @@ void mainscreen::saturn_update()
 
 void mainscreen::jupiter_draw()
 {
+    InitialRectangle1.x=currentframe*leftarrow.width/noofframes;
+    DrawTexturePro(leftarrow,InitialRectangle1,FinalRectangle1,Vector2{0,0},0,WHITE);
+
+    InitialRectangle4.x=currentframe*rightarrow.width/noofframes;
+    DrawTexturePro(rightarrow,InitialRectangle4,FinalRectangle4,Vector2{0,0},0,WHITE);
+
     DrawTexturePro(jupiter,JInitialRectangle,JFinalRectangle,Vector2{0,0},0.0f,WHITE);
+    DrawTexturePro(Jupiter,JIR,JFR,Vector2{0,0},0.0f,WHITE);
 
 }
 
