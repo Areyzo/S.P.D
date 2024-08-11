@@ -14,7 +14,7 @@ class TutorialPlayer
     Rectangle frameRec;
     Rectangle hitbox;
     Rectangle InitialRectangle;
-    Rectangle FinalRectangle;
+    Rectangle FinalRectangle;   
     int currentFrame;
     int frameCounter;
     int frameSpeed;  
@@ -22,5 +22,7 @@ class TutorialPlayer
     void draw();
     void animation();
     void update();
+    bool TutDone=false;
+    bool IsLeftArrowPressed();
 
 };

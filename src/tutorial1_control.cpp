@@ -35,18 +35,24 @@ void TutorialPlayer::animation()
 
 void TutorialPlayer::update()
 {
-    if(IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT))//left
+    if(!TutDone)
+    {
+        if(IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT))//left
     {
         FinalRectangle.x-=speed;
-        if(FinalRectangle.x==0)
-        {
-            FinalRectangle.x=0;
-
-        }
+        TutDone=true;
     }
     if(IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT))
     {
         FinalRectangle.x+=speed;
     }
+
+    }
+    else
+    {
+        DrawText("CONGRATULATIONS", 800, 400, 50, RED);
+    }
+
+    
 }
 
