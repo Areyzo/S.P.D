@@ -84,4 +84,5 @@ class mainscreen
     Rectangle JIR;
     Rectangle JFR;
 
+    int game=1;
 };

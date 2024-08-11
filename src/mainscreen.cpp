@@ -60,6 +60,7 @@ mainscreen::~mainscreen()
     UnloadTexture(leftarrow);
     UnloadTexture(rightarrow);
     UnloadTexture(saturn);
+    UnloadTexture(jupiter);
     UnloadTexture(Earth);
     UnloadTexture(Saturn);
     UnloadTexture(Jupiter);
@@ -187,14 +188,17 @@ void mainscreen::draw_text()
     {
         case 1:
             draw();
+            game=1;
             break;
         case 2:
             saturn_update();
             saturn_draw();
+            game=2;
             break;
         case 3:
             jupiter_update();
             jupiter_draw();
+            game=3;
             break;
     }
 }
