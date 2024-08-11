@@ -3,6 +3,10 @@
 
 mainscreen::mainscreen()
 {
+    // background
+     background = LoadTexture("Graphics/gameres/bg.png");
+     scale = 2.0; 
+
     image=LoadTexture("Graphics/earth.png");
     InitialRectangle={0.0f,0.0f,(float)image.width/upperframe,(float)image.height/2};
     FinalRectangle={600.0f,0.0f,(float)image.width/upperframe*3.0f,(float)image.height/2*3.0f};
@@ -51,6 +55,7 @@ mainscreen::mainscreen()
 
 mainscreen::~mainscreen()
 {
+    UnloadTexture(background);
     UnloadTexture(image);
     UnloadTexture(leftarrow);
     UnloadTexture(rightarrow);
@@ -58,10 +63,15 @@ mainscreen::~mainscreen()
     UnloadTexture(Earth);
     UnloadTexture(Saturn);
     UnloadTexture(Jupiter);
+    UnloadTexture(background);
 }
 
 void mainscreen::draw()
-{
+{   
+    //drawing background
+     DrawTextureEx(background, (Vector2){ 0, scrollingBack}, 0.0f, scale, WHITE);
+     DrawTextureEx(background, (Vector2){0, -background.height*scale + scrollingBack }, 0.0f, scale, WHITE);
+
     InitialRectangle1.x=currentframe*leftarrow.width/noofframes;
     DrawTexturePro(leftarrow,InitialRectangle1,FinalRectangle1,Vector2{0,0},0,WHITE);
 
@@ -76,6 +86,10 @@ void mainscreen::draw()
 
 void mainscreen::update()
 {
+
+    scrollingBack = scrollingBack+0.2f;
+     if (scrollingBack >= background.height*scale) scrollingBack = -background.height*scale;
+
     if(!animationdone)
     {
         framecounter1++;

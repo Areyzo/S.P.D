@@ -409,15 +409,8 @@ void DrawGame(void){
         }
     }
 
-    // //score and coin
-    // DrawText(coinstr.c_str(),(screenWidth-150),0,20,WHITE);
-    // DrawText(std::to_string(coin).c_str(),(screenWidth-70),0,20,WHITE);
-    // DrawText(scorestr.c_str(),(screenWidth-150),20,20,WHITE);
-    // DrawText(std::to_string(score).c_str(),(screenWidth-70),20,20,WHITE);
-    // DrawText(highscorestr.c_str(),(screenWidth-200),40,20,WHITE);
-    // DrawText(std::to_string(highscore).c_str(),(screenWidth-70),40,20,WHITE);
 
-    // Draw the coin count
+// Draw the coin count
 DrawText(coinstr.c_str(), screenWidth - 170, 10, 24, WHITE);
 DrawText(std::to_string(coin).c_str(), screenWidth - 70, 10, 24, WHITE);
 

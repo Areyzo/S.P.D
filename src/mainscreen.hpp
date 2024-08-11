@@ -35,6 +35,11 @@ class mainscreen
     ~mainscreen();
     void draw();
     void update();
+    //background;
+    Texture2D background;
+    float scale = 0.0f;
+    float scrollingBack = 0.0f;
+
     //void draw_arrows();
     bool upperframedone=false;
     bool animationdone=false;
