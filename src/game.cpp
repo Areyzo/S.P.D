@@ -44,6 +44,7 @@ Texture2D background;
 Texture2D bg1;
 Texture2D bg2;
 Texture2D bg3;
+int bgnumber;
 
 
 //sounds
@@ -73,7 +74,29 @@ void InitGame(){
     background = LoadTexture("Graphics/gameres/bg.png");
     bg1 = LoadTexture("Graphics/gameres/bg1.png");
     bg2 = LoadTexture("Graphics/gameres/bg2.png");
-    bg3 = LoadTexture("Graphics/gameres/bg3.png");
+    std::ifstream screenFile("screen.txt");
+    if (screenFile.is_open()) {
+        screenFile >> bgnumber;
+        screenFile.close();
+    } else {
+        bgnumber = 1; // Default background if file doesn't open
+    }
+    // Load background based on number
+    switch (bgnumber) {
+        case 1:
+            bg3 = LoadTexture("Graphics/gameres/bg3.png");
+            break;
+        case 2:
+            bg3 = LoadTexture("Graphics/gameres/backgroundg2.png");
+            break;
+        case 3:
+            bg3 = LoadTexture("Graphics/gameres/background3.png");
+            break;
+        default:
+            bg3 = LoadTexture("Graphics/gameres/bg3.png"); // Default background
+            break;
+    }
+
     shootRate = 0;
     activeobstacle = 5;
     scale = screenHeight/background.height; 
@@ -462,11 +485,10 @@ void UnloadGame(void){
 
 int game(){
     gameOver = false;
-    // InitWindow(screenWidth,screenHeight,"bullet screen");
+   
     InitAudioDevice(); // Initialize the audio device
     //initilize game
     InitGame();
-
 
     while (!gameOver && !WindowShouldClose())//
     {
