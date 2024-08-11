@@ -37,8 +37,18 @@ int main()
                 play.update();
                 if(play.screenChanger)
                 {
-                    screenchanger=TUTORIAL1;
-                    play.reset();
+                    play.done();
+                    if(play.skip_tutoial)
+                    {
+                        screenchanger=GAME;
+                        play.reset();
+                    }
+                    else
+                    {
+                        screenchanger=TUTORIAL1;
+                        play.reset();
+                    }
+                    
                 }
                 upgrade.update();
                 if(upgrade.screenChanger)
@@ -52,6 +62,18 @@ int main()
                     screenchanger=MAIN;
                     option.reset();
                 }
+                // if(m.game==1)
+                // {
+                //     screenchanger=MAIN;
+                // }
+                // else if(m.game==2)
+                // {
+                //     screenchanger=UPDATE;
+                // }
+                // else
+                // {
+
+                // }
             }break;
             case UPGRADE:
             {  
@@ -149,7 +171,7 @@ int main()
             case GAME:
             {
                 game();
-                DrawText("GAME SCREEN",0,0,25,WHITE);
+                //DrawText("GAME SCREEN",0,0,25,WHITE);
                 std::cout<<"back"<<std::endl;
                 break;
             }
