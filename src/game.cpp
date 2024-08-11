@@ -54,6 +54,18 @@ float scale1;
 float scale2;
 float scale3;
 
+bool checkcollision(Rectangle rect1,Rectangle rect2){
+    if(rect1.x<rect2.x +rect2.width &&
+        rect1.x + rect1.width > rect2.x &&
+        rect1.y<rect2.y +rect2.height&&
+        rect1.y + rect1.height > rect2.y
+        ){
+            return true;
+        }
+    else{
+        return false;
+    }
+};
 
 void InitGame(){
 
@@ -233,7 +245,7 @@ void UpdateGame(void){
         obstacles[i].hitbox.y = obstacles[i].rect.y; 
        }
        //player collision
-       if(CheckCollisionRecs(obstacles[i].hitbox,player.hitbox)){
+       if(checkcollision(obstacles[i].hitbox,player.hitbox)){
         //explosion
         Explosion explosion = { 
                             player.rect,
@@ -287,7 +299,7 @@ void UpdateGame(void){
             {
                  if (obstacles[j].active)
                 {
-                    if(CheckCollisionRecs(bullet[i].rect,obstacles[j].hitbox)){
+                    if(checkcollision(bullet[i].rect,obstacles[j].hitbox)){
                         bullet[i].active = false;
                         //explosion inatilize
                         Explosion explosion = { 
@@ -397,13 +409,28 @@ void DrawGame(void){
         }
     }
 
-    //score and coin
-    DrawText(coinstr.c_str(),(screenWidth-150),0,20,WHITE);
-    DrawText(std::to_string(coin).c_str(),(screenWidth-70),0,20,WHITE);
-    DrawText(scorestr.c_str(),(screenWidth-150),20,20,WHITE);
-    DrawText(std::to_string(score).c_str(),(screenWidth-70),20,20,WHITE);
-    DrawText(highscorestr.c_str(),(screenWidth-200),40,20,WHITE);
-    DrawText(std::to_string(highscore).c_str(),(screenWidth-70),40,20,WHITE);
+    // //score and coin
+    // DrawText(coinstr.c_str(),(screenWidth-150),0,20,WHITE);
+    // DrawText(std::to_string(coin).c_str(),(screenWidth-70),0,20,WHITE);
+    // DrawText(scorestr.c_str(),(screenWidth-150),20,20,WHITE);
+    // DrawText(std::to_string(score).c_str(),(screenWidth-70),20,20,WHITE);
+    // DrawText(highscorestr.c_str(),(screenWidth-200),40,20,WHITE);
+    // DrawText(std::to_string(highscore).c_str(),(screenWidth-70),40,20,WHITE);
+
+    // Draw the coin count
+DrawText(coinstr.c_str(), screenWidth - 170, 10, 24, WHITE);
+DrawText(std::to_string(coin).c_str(), screenWidth - 70, 10, 24, WHITE);
+
+// Draw the score
+DrawText(scorestr.c_str(), screenWidth - 170, 40, 24, WHITE);
+DrawText(std::to_string(score).c_str(), screenWidth - 70, 40, 24, WHITE);
+
+// Draw the high score
+DrawText(highscorestr.c_str(), screenWidth - 220, 70, 24, WHITE);
+DrawText(std::to_string(highscore).c_str(), screenWidth - 70, 70, 24, WHITE);
+
+// Optional: Draw a border or underline to separate sections
+DrawLine(screenWidth - 230, 100, screenWidth , 100, WHITE);
     
     EndDrawing();
 }
