@@ -6,6 +6,7 @@
 #include <algorithm>
 #include"game.hpp"
 #include<iostream>
+#include"gameover.hpp"
 
 
 //defines
@@ -494,6 +495,10 @@ int game(){
     {
         UpdateDrawFrame();
        
+    }
+    while (gameOver && !WindowShouldClose())//
+    {
+        
     }
     UnloadGame();
     CloseAudioDevice();
