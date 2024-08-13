@@ -39,12 +39,13 @@ int main()
                 play.update();
                 if(play.screenChanger)
                 {
-                    // play.done();
-                    // if(play.skip_tutoial)
-                    // {
-                    //     screenchanger=GAME;
-                    //     play.reset();
-                    // }
+                    play.done();
+                    if(play.skip_tutoial)
+                    {
+                        screenchanger=GAME;
+                        play.reset();
+                    }
+                    else
                     {
                         screenchanger=TUTORIAL1;
                         play.reset();
