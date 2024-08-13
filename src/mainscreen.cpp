@@ -1,5 +1,6 @@
 #include "mainscreen.hpp"
 #include<iostream>
+#include <fstream> 
 
 mainscreen::mainscreen()
 {
@@ -187,19 +188,40 @@ void mainscreen::draw_text()
     switch (counter)
     {
         case 1:
+        {
             draw();
-            game=1;
+            game = 1;
+            std::ofstream outfile("screen.txt");
+            if (outfile.is_open()) {
+                outfile << game;
+                outfile.close();
+            }
             break;
+        }
         case 2:
+        {
             saturn_update();
             saturn_draw();
-            game=2;
+            game = 2;
+            std::ofstream outfile("screen.txt");
+            if (outfile.is_open()) {
+                outfile << game;
+                outfile.close();
+            }
             break;
+        }
         case 3:
+        {
             jupiter_update();
             jupiter_draw();
-            game=3;
+            game = 3;
+            std::ofstream outfile("screen.txt");
+            if (outfile.is_open()) {
+                outfile << game;
+                outfile.close();
+            }
             break;
+        }
     }
 }
 
