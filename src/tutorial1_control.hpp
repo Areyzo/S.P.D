@@ -21,8 +21,21 @@ class TutorialPlayer
     int noofframes=3;
     void draw();
     void animation();
-    void update();
-    bool TutDone=false;
-    bool IsLeftArrowPressed();
+    void update1();
+    void update2();
+    
+    bool Tut1Done=false;
+    bool Tut2Done=false;
+    bool leftarrowpressesd=false;
+    bool rightarrowpressed=false;
+    bool TutCompleted=false;
+    float pressedtime1=0.0f;
+    float pressedtime2=0.0f;
+    float Leftpressedtime=0.0f;
+
+    bool leftcompleted=false;
+    float completed=0.0f;
+    bool congratulationsdone = false;
+
 
 };

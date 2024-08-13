@@ -8,6 +8,7 @@
 #include "mainscreen.hpp"
 #include"game.hpp"
 #include"optionbutton.hpp"
+#include"upgradescreen.hpp"
 
 typedef  enum ScreenChanger {MAIN,UPGRADE,OPTION,TUTORIAL1,TUTORIAL2,GAME } ScreenChanger;
 
@@ -26,6 +27,7 @@ int main()
     TutorialPlayer tut1;
     mainscreen m;
     optionbutton option;
+    upgradescreen up;
 
     SetTargetFPS(60);
     while(WindowShouldClose()==false)
@@ -37,13 +39,12 @@ int main()
                 play.update();
                 if(play.screenChanger)
                 {
-                    play.done();
-                    if(play.skip_tutoial)
-                    {
-                        screenchanger=GAME;
-                        play.reset();
-                    }
-                    else
+                    // play.done();
+                    // if(play.skip_tutoial)
+                    // {
+                    //     screenchanger=GAME;
+                    //     play.reset();
+                    // }
                     {
                         screenchanger=TUTORIAL1;
                         play.reset();
@@ -62,18 +63,6 @@ int main()
                     screenchanger=MAIN;
                     option.reset();
                 }
-                // if(m.game==1)
-                // {
-                //     screenchanger=MAIN;
-                // }
-                // else if(m.game==2)
-                // {
-                //     screenchanger=UPDATE;
-                // }
-                // else
-                // {
-
-                // }
             }break;
             case UPGRADE:
             {  
@@ -142,6 +131,8 @@ int main()
             case UPGRADE:
             {
                 DrawText("UPGRADE SCREEN",0,0,25,WHITE);
+                up.draw();
+                up.update();
                 back.draw();
                 break;
             }
@@ -153,12 +144,11 @@ int main()
             }
             case TUTORIAL1:
             {
-                DrawText("TUTORIAL1 SCREEN",0,0,25,WHITE);
                 skip.draw();
                 continuebutton.draw();
                 tut1.draw();
                 tut1.animation();
-                tut1.update();
+                tut1.update1();
                 break;
             }
             case TUTORIAL2:
@@ -171,7 +161,6 @@ int main()
             case GAME:
             {
                 game();
-                //DrawText("GAME SCREEN",0,0,25,WHITE);
                 std::cout<<"back"<<std::endl;
                 break;
             }
