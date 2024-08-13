@@ -71,8 +71,8 @@ mainscreen::~mainscreen()
 void mainscreen::draw()
 {   
     //drawing background
-     DrawTextureEx(background, (Vector2){ 0, scrollingBack}, 0.0f, scale, WHITE);
-     DrawTextureEx(background, (Vector2){0, -background.height*scale + scrollingBack }, 0.0f, scale, WHITE);
+    DrawTextureEx(background, (Vector2){ 0, scrollingBack}, 0.0f, scale, WHITE);
+    DrawTextureEx(background, (Vector2){0, -background.height*scale + scrollingBack }, 0.0f, scale, WHITE);
 
     InitialRectangle1.x=currentframe*leftarrow.width/noofframes;
     DrawTexturePro(leftarrow,InitialRectangle1,FinalRectangle1,Vector2{0,0},0,WHITE);
