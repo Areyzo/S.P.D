@@ -147,8 +147,13 @@ int main()
         {
             case STORY:
             {
+<<<<<<< HEAD
                 //DrawText("STORY MODE",0.0f,0.0f,25,WHITE);
                 //s.draw();
+=======
+                // DrawText("STORY MODE",0.0f,0.0f,25,WHITE);
+                s.draw();
+>>>>>>> 7349475dda0ca5c29bd05697a356be849ce411d8
                 std::cout<<"The story mode is displayed\n";
                 break;
             }
