@@ -5,6 +5,7 @@
 #include <vector>
 #include <algorithm>
 #include"game.hpp"
+#include"gameover.hpp"
 #include<iostream>
 
 
@@ -490,11 +491,16 @@ int game(){
     //initilize game
     InitGame();
 
-    while (!gameOver && !WindowShouldClose())//
+   while (!WindowShouldClose()&&  !gameOver)//
     {
         UpdateDrawFrame();
        
     }
+
+    if (gameOver) {
+        gameover();
+    }
+
     UnloadGame();
     CloseAudioDevice();
     return 0;
