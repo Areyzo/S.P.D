@@ -17,7 +17,7 @@ int gameover(void)
 
 
     // Main game loop
-    while (!WindowShouldClose()&&!over)  // Detect window close button or ESC key
+    while (!WindowShouldClose() && !over)  // Detect window close button or ESC key
     {
         // Final draw to show game over screen
         // BeginDrawing();

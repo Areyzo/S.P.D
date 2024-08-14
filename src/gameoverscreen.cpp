@@ -1,5 +1,6 @@
 #include "gameoverscreen.hpp"
 #include<iostream>
+//#include"gameover.hpp"
 
 gameover::gameover()
 {
@@ -32,6 +33,33 @@ void gameover::update()
 {
     no_update();
     yes_update();
+}
+
+int gameover::finished()
+{
+    const int screenWidth = 1600;
+    const int screenHeight = 800;
+    bool over = false;
+
+    InitWindow(screenWidth, screenHeight, "Game Over Screen");
+
+    SetTargetFPS(60);  
+
+    while (!WindowShouldClose() && !over)  
+    {
+        BeginDrawing();
+        draw_screen();
+        EndDrawing();
+        if(IsKeyDown(KEY_ENTER))
+        {
+            over = true;
+        }
+    }
+
+    CloseWindow();  
+
+    return 0;
+
 }
 
 void gameover::draw_screen()

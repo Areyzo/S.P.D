@@ -147,7 +147,7 @@ int main()
         {
             case STORY:
             {
-                DrawText("STORY MODE",0.0f,0.0f,25,WHITE);
+                //DrawText("STORY MODE",0.0f,0.0f,25,WHITE);
                 //s.draw();
                 std::cout<<"The story mode is displayed\n";
                 break;

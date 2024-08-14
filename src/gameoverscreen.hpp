@@ -10,6 +10,7 @@ class gameover
     float delaytime1=5.0f;
     float delaytime2=10.0f;
     void update();
+    int finished();
 
     //Attributes of screen 
     Texture2D screen;

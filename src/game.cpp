@@ -7,7 +7,10 @@
 #include"game.hpp"
 #include"gameover.hpp"
 #include<iostream>
+#include"gameoverscreen.hpp"
 
+//Instance of gameoverscreen
+gameover g;
 
 //defines
 #define NUM_BULLET 50
@@ -484,14 +487,15 @@ void UnloadGame(void){
 }
 
 
-int game(){
+int game()
+{
     gameOver = false;
    
     InitAudioDevice(); // Initialize the audio device
     //initilize game
     InitGame();
 
-   while (!WindowShouldClose()&&  !gameOver)//
+   while (!WindowShouldClose() &&  !gameOver)//
     {
         UpdateDrawFrame();
        
@@ -499,7 +503,8 @@ int game(){
 
     if (gameOver) 
     {
-        gameover();
+        g.finished();
+        //gameover();
     }
 
     UnloadGame();
