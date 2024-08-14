@@ -9,8 +9,9 @@
 #include"game.hpp"
 #include"optionbutton.hpp"
 #include"upgradescreen.hpp"
+#include"story.hpp"
 
-typedef  enum ScreenChanger {MAIN,UPGRADE,OPTION,TUTORIAL1,TUTORIAL2,GAME } ScreenChanger;
+typedef  enum ScreenChanger {STORY,MAIN,UPGRADE,OPTION,TUTORIAL1,TUTORIAL2,GAME } ScreenChanger;
 
 int main()
 {
@@ -18,7 +19,7 @@ int main()
     const int screenheight=800.0f;
     InitWindow(screenwidth,screenheight,"Play Button Checker");
 
-    ScreenChanger screenchanger=MAIN;
+    ScreenChanger screenchanger=STORY;
     playbutton play;
     skipbutton skip;
     continuebutton continuebutton;
@@ -28,12 +29,21 @@ int main()
     mainscreen m;
     optionbutton option;
     upgradescreen up;
+    story s;
 
     SetTargetFPS(60);
     while(WindowShouldClose()==false)
     {
         switch(screenchanger)
         {
+            case STORY:
+            {
+                if(IsKeyPressed(KEY_ENTER))
+                {
+                    screenchanger=MAIN;
+                }
+                
+            }break;
             case MAIN:
             {
                 play.update();
@@ -118,6 +128,13 @@ int main()
         ClearBackground(BLACK);
         switch(screenchanger)
         {
+            case STORY:
+            {
+                DrawText("STORY MODE",0.0f,0.0f,25,WHITE);
+                s.draw();
+                std::cout<<"The story mode is displayed\n";
+                break;
+            }
             case MAIN:
             {
                 DrawText("MAIN SCREEN",0,0,25,WHITE);
