@@ -19,4 +19,5 @@ private:
     float timeElapsed;     // Time elapsed for animation
     float animationTime;   // Total animation time
     Vector2 framePosition; // Position to draw the frame on the screen
+    Sound storysound; // Background music
 };
