@@ -2,7 +2,10 @@
 #include<iostream>
 
 TutorialPlayer::TutorialPlayer()
-{
+{   
+    background = LoadTexture("Graphics/gameres/bg.png");
+    scale = 2.0; 
+
     image=LoadTexture("Graphics/ship3.png");
     InitialRectangle={0.f,0.f,(float)image.width/noofframes,(float)image.height};
     FinalRectangle ={800,400,((float)image.width/noofframes*2.0f),(float)image.height*2.0f};
@@ -11,10 +14,13 @@ TutorialPlayer::TutorialPlayer()
 TutorialPlayer::~TutorialPlayer()
 {
     UnloadTexture(image);
+    UnloadTexture(background);
 }
 
 void TutorialPlayer::draw()
 {
+    DrawTextureEx(background, (Vector2){ 0, scrollingBack}, 0.0f, scale, WHITE);
+    DrawTextureEx(background, (Vector2){0, -background.height*scale + scrollingBack }, 0.0f, scale, WHITE);
     DrawTexturePro(image,InitialRectangle,FinalRectangle,Vector2{0,0},0.0f,WHITE);
 }
 
@@ -37,6 +43,9 @@ void TutorialPlayer::animation()
 
 void TutorialPlayer::update1()
 {
+    scrollingBack = scrollingBack+0.2f;
+     if (scrollingBack >= background.height*scale) scrollingBack = -background.height*scale;
+     
     if(!Tut1Done)
     {
         DrawText("MOVE THE LEFT ARROW KEY TO MOVE LEFT",0.0f,0.0f,50,WHITE);

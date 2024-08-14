@@ -37,5 +37,9 @@ class TutorialPlayer
     float completed=0.0f;
     bool congratulationsdone = false;
 
+    Texture2D background;
+    float scale = 0.0f;
+    float scrollingBack = 0.0f;
+
 
 };
