@@ -5,13 +5,14 @@
 #include"upgradebutton.hpp"
 #include"backbutton.hpp"
 #include"tutorial1_control.hpp"
-#include "mainscreen.hpp"
+#include"mainscreen.hpp"
 #include"game.hpp"
 #include"optionbutton.hpp"
 #include"upgradescreen.hpp"
 #include"story.hpp"
+#include"gameoverscreen.hpp"
 
-typedef  enum ScreenChanger {STORY,MAIN,UPGRADE,OPTION,TUTORIAL1,TUTORIAL2,GAME } ScreenChanger;
+typedef  enum ScreenChanger {STORY,MAIN,UPGRADE,OPTION,TUTORIAL1,TUTORIAL2,GAME,GAMEOVER } ScreenChanger;
 
 int main()
 {
@@ -30,6 +31,7 @@ int main()
     optionbutton option;
     upgradescreen up;
     story s;
+    gameover over;
 
     SetTargetFPS(60);
     while(WindowShouldClose()==false)
@@ -42,7 +44,6 @@ int main()
                 {
                     screenchanger=MAIN;
                 }
-                
             }break;
             case MAIN:
             {
@@ -122,6 +123,22 @@ int main()
             {
                 screenchanger=MAIN;
             }break;
+            case GAMEOVER:
+            {
+                over.update();
+                {
+                    if(over.no_screenchange)
+                    {
+                        screenchanger=MAIN;
+                        over.no_reset();
+                    }
+                    if(over.yes_screenchange)
+                    {
+                        screenchanger=MAIN;
+                        over.yes_reset();
+                    }
+                }
+            }break;
             default:break;
         }
         BeginDrawing();
@@ -131,7 +148,7 @@ int main()
             case STORY:
             {
                 DrawText("STORY MODE",0.0f,0.0f,25,WHITE);
-                s.draw();
+                //s.draw();
                 std::cout<<"The story mode is displayed\n";
                 break;
             }
@@ -180,6 +197,13 @@ int main()
             {
                 game();
                 std::cout<<"back"<<std::endl;
+                break;
+            }
+            case GAMEOVER:
+            {
+                over.draw_screen();
+                over.draw_no();
+                over.draw_yes();
                 break;
             }
             default:break;

@@ -497,7 +497,8 @@ int game(){
        
     }
 
-    if (gameOver) {
+    if (gameOver) 
+    {
         gameover();
     }
 
