@@ -1,7 +1,5 @@
 #include<raylib.h>
 #include"playbutton.hpp"
-#include"skipbutton.hpp"
-#include"continuebutton.hpp"
 #include"upgradebutton.hpp"
 #include"backbutton.hpp"
 #include"tutorial1_control.hpp"
@@ -13,7 +11,7 @@
 #include"gameoverscreen.hpp"
 #include"optionscreen.hpp"
 
-typedef  enum ScreenChanger {STORY,MAIN,UPGRADE,OPTION,TUTORIAL1,TUTORIAL2,GAME,GAMEOVER } ScreenChanger;
+typedef  enum ScreenChanger {STORY,MAIN,UPGRADE,OPTION,TUTORIAL1,GAME,GAMEOVER } ScreenChanger;
 
 int main()
 {
@@ -25,8 +23,6 @@ int main()
 
     ScreenChanger screenchanger=STORY;
     playbutton play;
-    skipbutton skip;
-    continuebutton continuebutton;
     upgradebutton upgrade;
     backbutton back;
     TutorialPlayer tut1;
@@ -102,26 +98,9 @@ int main()
             }break;
             case TUTORIAL1:
             {
-                continuebutton.update();
-                if(continuebutton.screenChanger)
-                {
-                    screenchanger=TUTORIAL2;
-                    continuebutton.reset();
-                }
-                skip.update();
-                if(skip.screenChanger)
+                if(tut1.screenchanger)
                 {
                     screenchanger=GAME;
-                    skip.reset();
-                }
-            }break;
-            case TUTORIAL2:
-            {
-                continuebutton.update();
-                if(continuebutton.screenChanger)
-                {
-                    screenchanger=GAME;
-                    continuebutton.reset();
                 }
             }break;
             case GAME:
@@ -194,18 +173,9 @@ int main()
             }
             case TUTORIAL1:
             {
-                skip.draw();
-                continuebutton.draw();
                 tut1.draw();
                 tut1.animation();
                 tut1.update1();
-                break;
-            }
-            case TUTORIAL2:
-            {
-                DrawText("TUTORIAL2 SCREEN",0,0,25,WHITE);
-                skip.draw();
-                continuebutton.draw();
                 break;
             }
             case GAME:
