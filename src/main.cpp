@@ -18,6 +18,7 @@ int main()
     const int screenwidth=1600.0f;
     const int screenheight=800.0f;
     InitWindow(screenwidth,screenheight,"Play Button Checker");
+    InitAudioDevice(); // Initialize audio device
 
     ScreenChanger screenchanger=STORY;
     playbutton play;
@@ -40,7 +41,8 @@ int main()
             {
                 if(IsKeyPressed(KEY_ENTER))
                 {
-                    screenchanger=MAIN;
+                    screenchanger = MAIN;
+                    s.stop();  // Stop the story audio and reset the animation
                 }
                 
             }break;
@@ -120,7 +122,7 @@ int main()
             }break;
             case GAME:
             {
-                screenchanger=MAIN;
+                    screenchanger = MAIN;
             }break;
             default:break;
         }
@@ -179,7 +181,6 @@ int main()
             case GAME:
             {
                 game();
-                std::cout<<"back"<<std::endl;
                 break;
             }
             default:break;
@@ -187,5 +188,6 @@ int main()
 
         EndDrawing();
     }
+       CloseAudioDevice();
     CloseWindow();
 }

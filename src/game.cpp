@@ -9,6 +9,7 @@
 #include<iostream>
 
 
+
 //defines
 #define NUM_BULLET 50
 #define NUM_OBSTACLES 50
@@ -484,24 +485,20 @@ void UnloadGame(void){
 }
 
 
-int game(){
+int game()
+{
     gameOver = false;
-   
-    InitAudioDevice(); // Initialize the audio device
     //initilize game
     InitGame();
 
-   while (!WindowShouldClose()&&  !gameOver)//
+   while (!WindowShouldClose() &&  !gameOver)
     {
         UpdateDrawFrame();
        
     }
 
-    if (gameOver) {
-        gameover();
-    }
-
     UnloadGame();
-    CloseAudioDevice();
     return 0;
+
+
 }
