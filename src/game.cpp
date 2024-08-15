@@ -10,15 +10,12 @@
 #include"gameoverscreen.hpp"
 #include"endingscreen.hpp"
 
-<<<<<<< HEAD
 //Instance of gameoverscreen
 
 
 //Gameover g;
 //endingscreen end;
 
-=======
->>>>>>> 86149aa8d6aaf43897fec63a154b5a819ec5ec79
 //defines
 #define NUM_BULLET 50
 #define NUM_OBSTACLES 50
@@ -85,20 +82,6 @@ bool checkcollision(Rectangle rect1,Rectangle rect2){
 
 void InitGame(){
 
-<<<<<<< HEAD
-=======
-    //sound enabled or not
-    std::ifstream soundsystm("sound.txt");
-    if (soundsystm.is_open()) {
-        soundsystm >> soundon;
-        soundsystm.close();
-        std::cout<<"dound file opened"<<std::endl;
-    } else {
-        std::cout<<"dound file not open"<<std::endl;
-        soundon = 1; // Default sound on if file doesn't open
-    }
-
->>>>>>> 86149aa8d6aaf43897fec63a154b5a819ec5ec79
     background = LoadTexture("Graphics/gameres/bg.png");
     bg1 = LoadTexture("Graphics/gameres/bg1.png");
     bg2 = LoadTexture("Graphics/gameres/bg2.png");
@@ -735,24 +718,17 @@ int game()
     //initilize game
     InitGame();
 
-<<<<<<< HEAD
    while (!WindowShouldClose() &&  !gameOver)//
-=======
-   while (!WindowShouldClose() &&  !gameOver)
->>>>>>> 86149aa8d6aaf43897fec63a154b5a819ec5ec79
     {
         UpdateDrawFrame();
        
     }
 
-<<<<<<< HEAD
-    if (gameOver) 
-    {
-        gameover();
-    }
+    // if (gameOver) 
+    // {
+    //     gameover();
+    // }
 
-=======
->>>>>>> 86149aa8d6aaf43897fec63a154b5a819ec5ec79
     UnloadGame();
     return 0;
 

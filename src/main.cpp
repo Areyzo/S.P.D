@@ -23,7 +23,7 @@ int main()
     InitAudioDevice(); // Initialize audio device
 
 
-    ScreenChanger screenchanger=MAIN;
+    ScreenChanger screenchanger=STORY;
     playbutton play;
     skipbutton skip;
     continuebutton continuebutton;
@@ -34,7 +34,7 @@ int main()
     optionbutton option;
     upgradescreen up;
     optionscreen op;
-    //story s;
+    story s;
    // Gameover over;
 
     SetTargetFPS(60);
@@ -158,7 +158,7 @@ int main()
             case STORY:
             {
                 //DrawText("STORY MODE",0.0f,0.0f,25,WHITE);
-                //s.draw();
+                s.draw();
                 std::cout<<"The story mode is displayed\n";
                 break;
             }
