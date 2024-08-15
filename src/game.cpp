@@ -8,9 +8,13 @@
 #include"gameover.hpp"
 #include<iostream>
 #include"gameoverscreen.hpp"
+#include"endingscreen.hpp"
 
 //Instance of gameoverscreen
-gameover g;
+
+
+//Gameover g;
+//endingscreen end;
 
 //defines
 #define NUM_BULLET 50
@@ -74,7 +78,6 @@ bool checkcollision(Rectangle rect1,Rectangle rect2){
 
 void InitGame(){
 
-    
     background = LoadTexture("Graphics/gameres/bg.png");
     bg1 = LoadTexture("Graphics/gameres/bg1.png");
     bg2 = LoadTexture("Graphics/gameres/bg2.png");
@@ -503,8 +506,7 @@ int game()
 
     if (gameOver) 
     {
-        g.finished();
-        //gameover();
+        gameover();
     }
 
     UnloadGame();

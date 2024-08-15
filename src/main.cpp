@@ -11,6 +11,7 @@
 #include"upgradescreen.hpp"
 #include"story.hpp"
 #include"gameoverscreen.hpp"
+#include"optionscreen.hpp"
 
 typedef  enum ScreenChanger {STORY,MAIN,UPGRADE,OPTION,TUTORIAL1,TUTORIAL2,GAME,GAMEOVER } ScreenChanger;
 
@@ -20,7 +21,8 @@ int main()
     const int screenheight=800.0f;
     InitWindow(screenwidth,screenheight,"Play Button Checker");
 
-    ScreenChanger screenchanger=STORY;
+
+    ScreenChanger screenchanger=MAIN;
     playbutton play;
     skipbutton skip;
     continuebutton continuebutton;
@@ -30,8 +32,9 @@ int main()
     mainscreen m;
     optionbutton option;
     upgradescreen up;
-    story s;
-    gameover over;
+    optionscreen op;
+    //story s;
+   // Gameover over;
 
     SetTargetFPS(60);
     while(WindowShouldClose()==false)
@@ -72,7 +75,7 @@ int main()
                 option.update();
                 if(option.screenChanger)
                 {
-                    screenchanger=MAIN;
+                    screenchanger=OPTION;
                     option.reset();
                 }
             }break;
@@ -125,19 +128,24 @@ int main()
             }break;
             case GAMEOVER:
             {
-                over.update();
+                // over.update();
+                // {
+                //     if(over.no_screenchange)
+                //     {
+                //         screenchanger=MAIN;
+                //         over.no_reset();
+                //     }
+                //     if(over.yes_screenchange)
+                //     {
+                //         screenchanger=MAIN;
+                //         over.yes_reset();
+                //     }
+                // }
+                if(IsKeyPressed(KEY_ENTER))
                 {
-                    if(over.no_screenchange)
-                    {
-                        screenchanger=MAIN;
-                        over.no_reset();
-                    }
-                    if(over.yes_screenchange)
-                    {
-                        screenchanger=MAIN;
-                        over.yes_reset();
-                    }
+                    screenchanger=MAIN;
                 }
+
             }break;
             default:break;
         }
@@ -147,13 +155,8 @@ int main()
         {
             case STORY:
             {
-<<<<<<< HEAD
                 //DrawText("STORY MODE",0.0f,0.0f,25,WHITE);
                 //s.draw();
-=======
-                // DrawText("STORY MODE",0.0f,0.0f,25,WHITE);
-                s.draw();
->>>>>>> 7349475dda0ca5c29bd05697a356be849ce411d8
                 std::cout<<"The story mode is displayed\n";
                 break;
             }
@@ -173,11 +176,16 @@ int main()
                 DrawText("UPGRADE SCREEN",0,0,25,WHITE);
                 up.draw();
                 up.update();
+                up.draw_coins();
+                up.draw_up();
+                up.up_up();
                 back.draw();
                 break;
             }
             case OPTION:
             {
+                op.draw();
+                op.update();
                 DrawText("OPTION SCREEN",0,0,25,WHITE);
                 back.draw();
                 break;
@@ -206,9 +214,9 @@ int main()
             }
             case GAMEOVER:
             {
-                over.draw_screen();
-                over.draw_no();
-                over.draw_yes();
+                // over.draw_screen();
+                // over.draw_no();
+                // over.draw_yes();
                 break;
             }
             default:break;

@@ -1,16 +1,16 @@
 #pragma once
 #include<raylib.h>
 
-class gameover
+class Gameover
 {
     public:
-    gameover();
-    ~gameover();
+    Gameover();
+    ~Gameover();
     bool IsButtonClicked(Rectangle rect);
     float delaytime1=5.0f;
     float delaytime2=10.0f;
     void update();
-    int finished();
+    void finished();
 
     //Attributes of screen 
     Texture2D screen;

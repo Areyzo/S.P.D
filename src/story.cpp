@@ -55,3 +55,4 @@ void story::draw() {
     }
 
 }
+

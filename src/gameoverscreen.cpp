@@ -2,78 +2,68 @@
 #include<iostream>
 //#include"gameover.hpp"
 
-gameover::gameover()
+Gameover::Gameover()
 {
     screen=LoadTexture("Graphics/gameover.png");
     InitialRectangle1={0.0f,0.0f,(float)screen.width,(float)screen.height};
-    InitialRectangle1={0.0f,0.0f,(float)screen.width*2.0f,(float)screen.height*2.0f};
+    InitialRectangle1={0.0f,0.0f,(float)screen.width*2.5f,(float)screen.height*2.5f};
 
-    no=LoadTexture("Graphics/no.png");
+    no=LoadTexture("Graphics/no1.png");
     InitialRectangle2={0.0f,0.0f,(float)no.width/no_totalframe,(float)no.height};
     FinalRectangle2={800.0f,400.0f,(float)no.width/no_totalframe*(5.0f),(float)no.height*5.0f};
 
-    yes=LoadTexture("Graphics/yes.png");
+    yes=LoadTexture("Graphics/yes1.png");
     InitialRectangle3={0.0f,0.0f,(float)yes.width/yes_totalframe,(float)yes.height};
     InitialRectangle3={800.0f,500.0f,(float)yes.width/yes_totalframe*(5.0f),(float)yes.height};
+
+    if (screen.id == 0) {
+    std::cerr << "Failed to load screen texture!" << std::endl;
+    // Handle error, perhaps return or set a default texture
+}
+if (no.id == 0) {
+    std::cerr << "Failed to load 'no' texture!" << std::endl;
+}
+if (yes.id == 0) {
+    std::cerr << "Failed to load 'yes' texture!" << std::endl;
+}
 }
 
-gameover::~gameover()
+Gameover::~Gameover()
 {
     UnloadTexture(screen);
     UnloadTexture(no);
     UnloadTexture(yes);
 }
 
-// void gameover::IsButtonClicked(rect)
-// {
-//     return (CheckCollisionPointRec(GetMousePosition(), rect) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON));
-// }
 
-void gameover::update()
+void Gameover::update()
 {
     no_update();
     yes_update();
 }
 
-int gameover::finished()
+void Gameover::finished()
 {
-    const int screenWidth = 1600;
-    const int screenHeight = 800;
-    bool over = false;
 
-    InitWindow(screenWidth, screenHeight, "Game Over Screen");
-
-    SetTargetFPS(60);  
-
-    while (!WindowShouldClose() && !over)  
-    {
-        BeginDrawing();
-        draw_screen();
-        EndDrawing();
-        if(IsKeyDown(KEY_ENTER))
-        {
-            over = true;
-        }
-    }
-
-    CloseWindow();  
-
-    return 0;
-
+    // if (IsKeyPressed(KEY_ENTER)) 
+    // {
+    //     DrawText("Game Over", 0, 0, 50, RED);
+    // }
+    DrawText("Game Over", 0, 0, 50, RED);
 }
 
-void gameover::draw_screen()
+void Gameover::draw_screen()
 {
     DrawTexturePro(screen,InitialRectangle1,FinalRectangle1,Vector2{0,0},0.0f,WHITE);
 }
 
-void gameover::draw_no()
+void Gameover::draw_no()
 {
     InitialRectangle2.x=no_currentfarme*no.width/(no_totalframe);
     DrawTexturePro(no,InitialRectangle2,FinalRectangle2,Vector2{0,0},0.0f,WHITE);
 }
 
-void gameover::no_update()
+void Gameover::no_update()
 {
     if(!no_clcikstate && IsButtonClicked(FinalRectangle2))
     {
@@ -101,7 +91,7 @@ void gameover::no_update()
     }
 }
 
-void gameover::no_reset()
+void Gameover::no_reset()
 {
     no_currentfarme = 0;
     no_clcikstate = false;
@@ -111,13 +101,13 @@ void gameover::no_reset()
     no_screenchange=false;
 }
 
-void gameover::draw_yes()
+void Gameover::draw_yes()
 {
     InitialRectangle3.x=(yes_currentfarme*yes.width)/yes_totalframe;
     DrawTexturePro(yes,InitialRectangle3,FinalRectangle3,Vector2{0,0},0.0f,WHITE);
 }
 
-void gameover::yes_update()
+void Gameover::yes_update()
 {
     if(!yes_clcikstate && IsButtonClicked(FinalRectangle3))
     {
@@ -146,7 +136,7 @@ void gameover::yes_update()
 
 }
 
-void gameover::yes_reset()
+void Gameover::yes_reset()
 {
     yes_currentfarme = 0;
     yes_clcikstate = false;
@@ -156,7 +146,7 @@ void gameover::yes_reset()
     yes_screenchange=false;
 }
 
-bool gameover::IsButtonClicked(Rectangle rect)
+bool Gameover::IsButtonClicked(Rectangle rect)
 {
     return (CheckCollisionPointRec(GetMousePosition(), rect) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON));
 }

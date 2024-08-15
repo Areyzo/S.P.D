@@ -1,5 +1,0 @@
-<<<<<<< HEAD
-false
-=======
-true
->>>>>>> 5c38812646fd0dcb2cbb1ecdff0960a2ec105806
