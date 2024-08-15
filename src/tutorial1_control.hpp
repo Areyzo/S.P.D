@@ -22,7 +22,7 @@ class TutorialPlayer
     void draw();
     void animation();
     void update1();
-    void update2();
+    void update2(); 
     
     bool Tut1Done=false;
     bool Tut2Done=false;

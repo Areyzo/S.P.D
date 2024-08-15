@@ -113,5 +113,29 @@ void TutorialPlayer::update2()
         DrawText("CONGRATULATIONS",550,200,50,WHITE);
     }
 }
+void TutorialPlayer::update3()
+{
+    if(!Tut3Done)
+    {
+        DrawText("PRESS SPACE TO SHOOT",0.0f,0.0f,50,WHITE);
+
+        if(IsKeyDown(KEY_SPACE))
+    {
+        
+        if(GetTime()-pressedtime2>=1.0f)
+        {
+            Tut3Done=true;
+            std::cout<<"The tutorial 3 of bullet is completed\n";
+        }
+        std::cout<<"The value of pressed time is "<<pressedtime2<<std::endl;
+        std::cout<<"The value of gettime is "<<GetTime()<<std::endl;
+        std::cout<<"The tutorial 1 of movement is not completed\n";
+    }
+    }
+    else
+    {
+        DrawText("CONGRATULATIONS",550,200,50,WHITE);
+    }
+}
 
         
