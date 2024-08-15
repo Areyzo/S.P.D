@@ -8,8 +8,6 @@
 #include"gameover.hpp"
 #include<iostream>
 
-
-
 //defines
 #define NUM_BULLET 50
 #define NUM_OBSTACLES 50
@@ -31,6 +29,8 @@ bool gameOver = false;
 
 static Player player;
 static Bullet bullet[NUM_BULLET];
+static Bullet bullet1[NUM_BULLET];
+static Bullet bullet2[NUM_BULLET];
 static Obstacle obstacles[NUM_OBSTACLES];
 std::vector<Explosion> explosions;
 
@@ -47,6 +47,7 @@ Texture2D bg1;
 Texture2D bg2;
 Texture2D bg3;
 int bgnumber;
+int ship;
 
 
 //sounds
@@ -119,7 +120,29 @@ void InitGame(){
     player.color = YELLOW;
 
     //initilizing texture
-    player.texture = LoadTexture("Graphics/gameres/ship3.png");
+    std::ifstream updatefile("update.txt");
+    if (updatefile.is_open()) {
+        updatefile >> ship;
+        updatefile.close();
+    } else {
+        ship = 1; // Default background if file doesn't open
+    }
+    // Load background based on number
+    switch (ship) {
+        case 1:
+             player.texture = LoadTexture("Graphics/gameres/ship1.png");
+            break;
+        case 2:
+            player.texture = LoadTexture("Graphics/gameres/ship2.png");
+            break;
+        case 3:
+            player.texture = LoadTexture("Graphics/gameres/ship3.png");
+            break;
+        default:
+            player.texture = LoadTexture("Graphics/gameres/ship1.png"); // Default ship
+            break;
+    }
+   
     player.frameRec = { 0.0f, 0.0f, (float)player.texture.width / 3, (float)player.texture.height };
     player.currentFrame = 0;
     player.frameCounter = 0;
@@ -171,6 +194,41 @@ void InitGame(){
         //initilizing texture
         bullet[i].texture = LoadTexture("Graphics/gameres/bullet.png");
         bullet[i].frameRec = { 0.0f, 0.0f, (float)bullet[i].texture.width, (float)bullet[i].texture.height };
+        
+    }
+    if(ship ==2 || ship == 3 ){
+    for (int  i = 0; i < NUM_BULLET; i++)
+    {
+        //bullet1
+        bullet1[i].rect.x=800;
+        bullet1[i].rect.y=700;
+        bullet1[i].rect.height=30;
+        bullet1[i].rect.width=20;
+        bullet1[i].speed.x=0;
+        bullet1[i].speed.y=-10;
+        bullet1[i].active = false;
+        bullet1[i].color = GREEN;
+        //initilizing texture
+        bullet1[i].texture = LoadTexture("Graphics/gameres/bullet.png");
+        bullet1[i].frameRec = { 0.0f, 0.0f, (float)bullet1[i].texture.width, (float)bullet1[i].texture.height };
+    }
+    }
+    if( ship == 3 ){
+    for (int  i = 0; i < NUM_BULLET; i++)
+    {
+        //bullet1
+        bullet2[i].rect.x=800;
+        bullet2[i].rect.y=700;
+        bullet2[i].rect.height=30;
+        bullet2[i].rect.width=20;
+        bullet2[i].speed.x=0;
+        bullet2[i].speed.y=-10;
+        bullet2[i].active = false;
+        bullet2[i].color = GREEN;
+        //initilizing texture
+        bullet2[i].texture = LoadTexture("Graphics/gameres/bullet.png");
+        bullet2[i].frameRec = { 0.0f, 0.0f, (float)bullet2[i].texture.width, (float)bullet2[i].texture.height };
+    }
     }
 
 
@@ -294,16 +352,71 @@ void UpdateGame(void){
 
         shootRate +=5;
 
-        for (int i = 0; i < NUM_BULLET; i++)
+        if(ship == 1){
+            for (int i = 0; i < NUM_BULLET; i++)
         {
             if(!bullet[i].active && shootRate % 40 == 0){
-                 PlaySound(fxbullet);
+                PlaySound(fxbullet);
                 bullet[i].rect.x = (player.rect.x+(player.rect.width/2)-(bullet[i].rect.width/2));
-                bullet[i].rect.y = player.rect.y-(player.rect.height/4);
+                bullet[i].rect.y = player.rect.y+25;
                 bullet[i].active = true;
                 break;
             }
         }
+        }
+        if(ship == 2){
+            for (int i = 0; i < NUM_BULLET; i++){
+            if(!bullet[i].active && shootRate % 40 == 0){
+                 PlaySound(fxbullet);
+                bullet[i].rect.x = (player.rect.x+33);
+                bullet[i].rect.y = player.rect.y+30;
+                bullet[i].active = true;
+                break;
+            }
+        }
+         for (int i = 0; i < NUM_BULLET; i++){
+            if(!bullet1[i].active && shootRate % 40 == 0){
+                 PlaySound(fxbullet);
+                bullet1[i].rect.x = (player.rect.x+(player.rect.width)-52);
+                bullet1[i].rect.y = player.rect.y+30;
+                bullet1[i].active = true;
+                break;
+            }
+        }
+        }
+        //bullet 3
+        if(ship == 3){
+            for (int i = 0; i < NUM_BULLET; i++){
+            if(!bullet[i].active && shootRate % 40 == 0){
+                PlaySound(fxbullet);
+                bullet[i].rect.x = (player.rect.x+33);
+                bullet[i].rect.y = player.rect.y+30;
+                bullet[i].active = true;
+                break;
+            }
+        }
+         for (int i = 0; i < NUM_BULLET; i++){
+            if(!bullet1[i].active && shootRate % 40 == 0){
+                 PlaySound(fxbullet);
+                bullet1[i].rect.x = (player.rect.x+(player.rect.width/2)-(bullet1[i].rect.width/2));
+                bullet1[i].rect.y = player.rect.y+25;
+                bullet1[i].active = true;
+                break;
+            }
+        }
+         for (int i = 0; i < NUM_BULLET; i++){
+            if(!bullet2[i].active && shootRate % 40 == 0){
+                 PlaySound(fxbullet);
+                bullet2[i].rect.x = (player.rect.x+(player.rect.width)-52);
+                bullet2[i].rect.y = player.rect.y+30;
+                bullet2[i].active = true;
+                break;
+            }
+        }
+        }
+
+
+        
          
     }
     //shoot logic
@@ -326,6 +439,97 @@ void UpdateGame(void){
                 {
                     if(checkcollision(bullet[i].rect,obstacles[j].hitbox)){
                         bullet[i].active = false;
+                        //explosion inatilize
+                        Explosion explosion = { 
+                            obstacles[j].rect,
+                            0,
+                            0, 
+                            true, 
+                            explosionTexture, 
+                            {0, 0, 64, 64} };
+                        explosions.push_back(explosion);
+                        obstacles[j].rect.x = GetRandomValue(0,screenWidth-player.rect.width);
+                        obstacles[j].hitbox.x = obstacles[j].rect.x;
+                        obstacles[j].rect.y = -obstacles[j].rect.height;
+                        obstacles[j].hitbox.y = obstacles[j].rect.y;
+                        coin ++;
+                        //explosion sound
+                         PlaySound(fxexplosion);
+                        //explosion
+                        
+                        
+                    }
+                }
+        
+            }
+        }
+    }
+    //shoot logic for bullet 1
+    for (int i = 0; i < NUM_BULLET; i++)
+    {
+        if(bullet1[i].active){   
+            //movement
+            
+            bullet1[i].rect.y += bullet1[i].speed.y;
+
+            if(bullet1[i].rect.y <= 0)//goes above screen
+            {
+                bullet1[i].active = false;
+                shootRate = 0;
+            }
+            //collision
+            for (int  j = 0; j < activeobstacle; j++)
+            {
+                 if (obstacles[j].active)
+                {
+                    if(checkcollision(bullet1[i].rect,obstacles[j].hitbox)){
+                        bullet1[i].active = false;
+                        //explosion inatilize
+                        Explosion explosion = { 
+                            obstacles[j].rect,
+                            0,
+                            0, 
+                            true, 
+                            explosionTexture, 
+                            {0, 0, 64, 64} };
+                        explosions.push_back(explosion);
+                        obstacles[j].rect.x = GetRandomValue(0,screenWidth-player.rect.width);
+                        obstacles[j].hitbox.x = obstacles[j].rect.x;
+                        obstacles[j].rect.y = -obstacles[j].rect.height;
+                        obstacles[j].hitbox.y = obstacles[j].rect.y;
+                        coin ++;
+                        //explosion sound
+                         PlaySound(fxexplosion);
+                        //explosion
+                        
+                        
+                    }
+                }
+        
+            }
+        }
+    }
+    //for bulett2
+    //shoot logic for bullet 1
+    for (int i = 0; i < NUM_BULLET; i++)
+    {
+        if(bullet2[i].active){   
+            //movement
+            
+            bullet2[i].rect.y += bullet2[i].speed.y;
+
+            if(bullet2[i].rect.y <= 0)//goes above screen
+            {
+                bullet2[i].active = false;
+                shootRate = 0;
+            }
+            //collision
+            for (int  j = 0; j < activeobstacle; j++)
+            {
+                 if (obstacles[j].active)
+                {
+                    if(checkcollision(bullet2[i].rect,obstacles[j].hitbox)){
+                        bullet2[i].active = false;
                         //explosion inatilize
                         Explosion explosion = { 
                             obstacles[j].rect,
@@ -424,7 +628,14 @@ void DrawGame(void){
        if(bullet[i].active){
             DrawTexturePro(bullet[i].texture, bullet[i].frameRec, bullet[i].rect, {0,0}, 0.0f, WHITE);
        }
+       if(bullet1[i].active){
+            DrawTexturePro(bullet1[i].texture, bullet1[i].frameRec, bullet1[i].rect, {0,0}, 0.0f, WHITE);
+       }
+       if(bullet2[i].active){
+            DrawTexturePro(bullet2[i].texture, bullet2[i].frameRec, bullet2[i].rect, {0,0}, 0.0f, WHITE);
+       }
     }
+    
 
     //explosion
      for (Explosion& explosion : explosions) {

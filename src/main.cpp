@@ -181,6 +181,7 @@ int main()
             case GAME:
             {
                 game();
+                std::cout<<"gameover screen"<<std::endl;
                 break;
             }
             default:break;
