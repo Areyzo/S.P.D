@@ -81,7 +81,13 @@ bool checkcollision(Rectangle rect1,Rectangle rect2){
 };
 
 void InitGame(){
-
+    std::ifstream soundstate("sound.txt");
+    if (soundstate.is_open()) {
+        soundstate >> soundon;
+        soundstate.close();
+    } else {
+        soundon = 1; // Default background if file doesn't open
+    }
     background = LoadTexture("Graphics/gameres/bg.png");
     bg1 = LoadTexture("Graphics/gameres/bg1.png");
     bg2 = LoadTexture("Graphics/gameres/bg2.png");
@@ -128,7 +134,7 @@ void InitGame(){
     player.color = YELLOW;
 
     //initilizing texture
-    std::ifstream updatefile("update.txt");
+    std::ifstream updatefile("SpaceShip.txt");
     if (updatefile.is_open()) {
         updatefile >> ship;
         updatefile.close();

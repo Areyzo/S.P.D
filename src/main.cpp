@@ -182,8 +182,6 @@ int main()
             {
                 game();
                 std::cout<<"gameover screen"<<std::endl;
-                
-
                 break;
             }
             case GAMEOVER:
