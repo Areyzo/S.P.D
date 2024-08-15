@@ -57,3 +57,4 @@ void story::stop() {
     timeElapsed = 0.0f;  // Reset the animation timer
     currentFrame = 0;  // Reset to the first frame
 }
+
