@@ -26,6 +26,7 @@ std::string coinstr = "Coin:";
 std::string scorestr = "Score:";
 std::string highscorestr = "High Score:";
 bool gameOver = false;
+int soundon;
 
 static Player player;
 static Bullet bullet[NUM_BULLET];
@@ -73,7 +74,17 @@ bool checkcollision(Rectangle rect1,Rectangle rect2){
 
 void InitGame(){
 
-    
+    //sound enabled or not
+    std::ifstream soundsystm("sound.txt");
+    if (soundsystm.is_open()) {
+        soundsystm >> soundon;
+        soundsystm.close();
+        std::cout<<"dound file opened"<<std::endl;
+    } else {
+        std::cout<<"dound file not open"<<std::endl;
+        soundon = 1; // Default sound on if file doesn't open
+    }
+
     background = LoadTexture("Graphics/gameres/bg.png");
     bg1 = LoadTexture("Graphics/gameres/bg1.png");
     bg2 = LoadTexture("Graphics/gameres/bg2.png");
@@ -356,7 +367,9 @@ void UpdateGame(void){
             for (int i = 0; i < NUM_BULLET; i++)
         {
             if(!bullet[i].active && shootRate % 40 == 0){
-                PlaySound(fxbullet);
+                if(soundon == 1){
+                    PlaySound(fxbullet);
+                    }
                 bullet[i].rect.x = (player.rect.x+(player.rect.width/2)-(bullet[i].rect.width/2));
                 bullet[i].rect.y = player.rect.y+25;
                 bullet[i].active = true;
@@ -367,7 +380,7 @@ void UpdateGame(void){
         if(ship == 2){
             for (int i = 0; i < NUM_BULLET; i++){
             if(!bullet[i].active && shootRate % 40 == 0){
-                 PlaySound(fxbullet);
+                 if(soundon == 1){PlaySound(fxbullet);}
                 bullet[i].rect.x = (player.rect.x+33);
                 bullet[i].rect.y = player.rect.y+30;
                 bullet[i].active = true;
@@ -376,7 +389,7 @@ void UpdateGame(void){
         }
          for (int i = 0; i < NUM_BULLET; i++){
             if(!bullet1[i].active && shootRate % 40 == 0){
-                 PlaySound(fxbullet);
+                 if(soundon == 1){PlaySound(fxbullet);}
                 bullet1[i].rect.x = (player.rect.x+(player.rect.width)-52);
                 bullet1[i].rect.y = player.rect.y+30;
                 bullet1[i].active = true;
@@ -388,7 +401,7 @@ void UpdateGame(void){
         if(ship == 3){
             for (int i = 0; i < NUM_BULLET; i++){
             if(!bullet[i].active && shootRate % 40 == 0){
-                PlaySound(fxbullet);
+                 if(soundon == 1){PlaySound(fxbullet);}
                 bullet[i].rect.x = (player.rect.x+33);
                 bullet[i].rect.y = player.rect.y+30;
                 bullet[i].active = true;
@@ -397,7 +410,7 @@ void UpdateGame(void){
         }
          for (int i = 0; i < NUM_BULLET; i++){
             if(!bullet1[i].active && shootRate % 40 == 0){
-                 PlaySound(fxbullet);
+                 if(soundon == 1){PlaySound(fxbullet);}
                 bullet1[i].rect.x = (player.rect.x+(player.rect.width/2)-(bullet1[i].rect.width/2));
                 bullet1[i].rect.y = player.rect.y+25;
                 bullet1[i].active = true;
@@ -406,7 +419,7 @@ void UpdateGame(void){
         }
          for (int i = 0; i < NUM_BULLET; i++){
             if(!bullet2[i].active && shootRate % 40 == 0){
-                 PlaySound(fxbullet);
+                 if(soundon == 1){PlaySound(fxbullet);}
                 bullet2[i].rect.x = (player.rect.x+(player.rect.width)-52);
                 bullet2[i].rect.y = player.rect.y+30;
                 bullet2[i].active = true;
@@ -454,7 +467,9 @@ void UpdateGame(void){
                         obstacles[j].hitbox.y = obstacles[j].rect.y;
                         coin ++;
                         //explosion sound
+                         if(soundon == 1){
                          PlaySound(fxexplosion);
+                        }
                         //explosion
                         
                         
@@ -499,7 +514,9 @@ void UpdateGame(void){
                         obstacles[j].hitbox.y = obstacles[j].rect.y;
                         coin ++;
                         //explosion sound
+                         if(soundon == 1){
                          PlaySound(fxexplosion);
+                        }
                         //explosion
                         
                         
@@ -545,7 +562,9 @@ void UpdateGame(void){
                         obstacles[j].hitbox.y = obstacles[j].rect.y;
                         coin ++;
                         //explosion sound
+                         if(soundon == 1){
                          PlaySound(fxexplosion);
+                        }
                         //explosion
                         
                         
@@ -710,6 +729,5 @@ int game()
 
     UnloadGame();
     return 0;
-
 
 }
