@@ -51,6 +51,6 @@ void DrawGame(void);
 void UpdateDrawFrame(void);
 void UnloadGame(void);
 bool checkcollision(Rectangle rect1,Rectangle rect2);
-
+//bool gg = false;
 
 

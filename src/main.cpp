@@ -31,7 +31,7 @@ int main()
     upgradescreen up;
     optionscreen op;
     story s;
-   // Gameover over;
+    Gameover over;
 
     SetTargetFPS(60);
     while(WindowShouldClose()==false)
@@ -182,6 +182,8 @@ int main()
             {
                 game();
                 std::cout<<"gameover screen"<<std::endl;
+                
+
                 break;
             }
             case GAMEOVER:

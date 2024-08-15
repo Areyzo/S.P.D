@@ -45,4 +45,6 @@ class Gameover
     float yes_clicktime2=0.0f;
     void yes_reset();
     bool yes_screenchange=false;
+
+    void over();
 };

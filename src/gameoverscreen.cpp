@@ -146,6 +146,21 @@ void Gameover::yes_reset()
     yes_screenchange=false;
 }
 
+void Gameover::over()
+{
+    InitWindow(1600,800,"GAME OVER");
+    SetTargetFPS(60);
+    while(WindowShouldClose()==false)
+    {
+        BeginDrawing();
+        draw_screen();
+        draw_yes();
+        draw_no();
+        EndDrawing();
+        CloseWindow();
+    }
+}
+
 bool Gameover::IsButtonClicked(Rectangle rect)
 {
     return (CheckCollisionPointRec(GetMousePosition(), rect) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON));
