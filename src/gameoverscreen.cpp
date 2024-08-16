@@ -4,29 +4,19 @@
 
 Gameover::Gameover()
 {
-    screen=LoadTexture("Graphics/gameover.png");
-    InitialRectangle1={0.0f,0.0f,(float)screen.width,(float)screen.height};
-    InitialRectangle1={0.0f,0.0f,(float)screen.width*2.5f,(float)screen.height*2.5f};
+    screen = LoadTexture("Graphics/overscreen.png");
+    InitialRectangle1 = {0.0f, 0.0f, (float)screen.width, (float)screen.height};
+    FinalRectangle1 = {0.0f, 0.0f, (float)screen.width * 2.0f, (float)screen.height * 2.0f};
 
-    no=LoadTexture("Graphics/no1.png");
-    InitialRectangle2={0.0f,0.0f,(float)no.width/no_totalframe,(float)no.height};
-    FinalRectangle2={800.0f,400.0f,(float)no.width/no_totalframe*(5.0f),(float)no.height*5.0f};
+    no = LoadTexture("Graphics/no1.png");
+    InitialRectangle2 = {0.0f, 0.0f, (float)no.width / no_totalframe, (float)no.height};
+    FinalRectangle2 = {825.0f, 650.0f, (float)no.width / no_totalframe * 2.5f, (float)no.height * 2.5f};
 
-    yes=LoadTexture("Graphics/yes1.png");
-    InitialRectangle3={0.0f,0.0f,(float)yes.width/yes_totalframe,(float)yes.height};
-    InitialRectangle3={800.0f,500.0f,(float)yes.width/yes_totalframe*(5.0f),(float)yes.height};
+    yes = LoadTexture("Graphics/yes1.png");
+    InitialRectangle3 = {0.0f, 0.0f, (float)yes.width / yes_totalframe, (float)yes.height};
+    FinalRectangle3 = {600.0f, 650.0f, (float)yes.width / yes_totalframe * 2.5f, (float)yes.height * 2.5f};  
+}
 
-    if (screen.id == 0) {
-    std::cerr << "Failed to load screen texture!" << std::endl;
-    // Handle error, perhaps return or set a default texture
-}
-if (no.id == 0) {
-    std::cerr << "Failed to load 'no' texture!" << std::endl;
-}
-if (yes.id == 0) {
-    std::cerr << "Failed to load 'yes' texture!" << std::endl;
-}
-}
 
 Gameover::~Gameover()
 {
@@ -42,15 +32,6 @@ void Gameover::update()
     yes_update();
 }
 
-void Gameover::finished()
-{
-
-    // if (IsKeyPressed(KEY_ENTER)) 
-    // {
-    //     DrawText("Game Over", 0, 0, 50, RED);
-    // }
-    DrawText("Game Over", 0, 0, 50, RED);
-}
 
 void Gameover::draw_screen()
 {
@@ -109,32 +90,32 @@ void Gameover::draw_yes()
 
 void Gameover::yes_update()
 {
-    if(!yes_clcikstate && IsButtonClicked(FinalRectangle3))
+    if (!yes_clcikstate && IsButtonClicked(FinalRectangle3))
     {
-        yes_currentfarme=1;
-        yes_clcikstate=true;
-        yes_clicktime1=GetTime();
-        std::cout<<"The second frame is displayed\n";
-        std::cout<<"The time when the button is clicked is "<<yes_clicktime1<<std::endl;
+        yes_currentfarme = 1;
+        yes_clcikstate = true;
+        yes_clicktime1 = GetTime();
+        std::cout << "The second frame is displayed\n";
+        std::cout << "The time when the button is clicked is " << yes_clicktime1 << std::endl;
     }
 
-    if(yes_clcikstate && (GetTime()-yes_clcikstate>=delaytime1))
+    if (yes_clcikstate && (GetTime() - yes_clicktime1 >= delaytime1))  // Corrected timing check
     {
-        yes_currentfarme=2;
-        yes_clicktime2=GetTime();
-        yes_screenchange=true;
-        yes_clcikstate=false;
-        std::cout<<"The thrid/first frame is displayed\n";
-        std::cout<<"The time when the button is clicked is "<<yes_clicktime2<<std::endl;
+        yes_currentfarme = 2;
+        yes_clicktime2 = GetTime();
+        yes_screenchange = true;
+        yes_clcikstate = false;
+        std::cout << "The third/first frame is displayed\n";
+        std::cout << "The time when the button is clicked is " << yes_clicktime2 << std::endl;
     }
 
-    if(yes_screenchange && (GetTime()-yes_clicktime2>=delaytime2))
+    if (yes_screenchange && (GetTime() - yes_clicktime2 >= delaytime2))
     {
-        yes_screenchange=true;
-        std::cout<<"The screen is changed\n";
+        yes_screenchange = true;
+        std::cout << "The screen is changed\n";
     }
-
 }
+
 
 void Gameover::yes_reset()
 {
@@ -148,17 +129,14 @@ void Gameover::yes_reset()
 
 void Gameover::over()
 {
-    InitWindow(1600,800,"GAME OVER");
-    SetTargetFPS(60);
-    while(WindowShouldClose()==false)
-    {
-        BeginDrawing();
-        draw_screen();
-        draw_yes();
-        draw_no();
-        EndDrawing();
-        CloseWindow();
-    }
+        if(gameOver)
+        {
+            draw_screen();
+            draw_yes();
+            draw_no();
+            std::cout<<"The over function is entered\n";
+        }
+        
 }
 
 bool Gameover::IsButtonClicked(Rectangle rect)

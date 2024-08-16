@@ -1,5 +1,6 @@
 #pragma once
 #include<raylib.h>
+#include"game.hpp"
 
 class Gameover
 {
@@ -8,7 +9,7 @@ class Gameover
     ~Gameover();
     bool IsButtonClicked(Rectangle rect);
     float delaytime1=5.0f;
-    float delaytime2=10.0f;
+    float delaytime2=5.0f;
     void update();
     void finished();
 
@@ -47,4 +48,7 @@ class Gameover
     bool yes_screenchange=false;
 
     void over();
+
+    
+
 };

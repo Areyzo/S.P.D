@@ -105,29 +105,32 @@ int main()
             }break;
             case GAME:
             {
-                    screenchanger = MAIN;
-            }break;
-            case GAMEOVER:
-            {
-                // over.update();
-                // {
-                //     if(over.no_screenchange)
-                //     {
-                //         screenchanger=MAIN;
-                //         over.no_reset();
-                //     }
-                //     if(over.yes_screenchange)
-                //     {
-                //         screenchanger=MAIN;
-                //         over.yes_reset();
-                //     }
-                // }
-                if(IsKeyPressed(KEY_ENTER))
-                {
-                    screenchanger=MAIN;
-                }
+                
+                screenchanger=GAMEOVER;
 
             }break;
+            case GAMEOVER:    
+            {
+                over.no_update();
+                if(over.no_screenchange)
+                {
+                    screenchanger = MAIN;
+                    over.no_reset();
+                }
+
+                  over.yes_update();
+                if(over.yes_screenchange)
+                {
+                screenchanger = GAME;
+                over.yes_reset(); // This was corrected from over.no_reset() to over.yes_reset()
+                }
+
+    // over.draw_screen();
+    // over.draw_no();
+    // over.draw_yes();
+             break;
+            }
+
             default:break;
         }
         BeginDrawing();
@@ -182,13 +185,14 @@ int main()
             {
                 game();
                 std::cout<<"gameover screen"<<std::endl;
+                over.over();
                 break;
             }
             case GAMEOVER:
             {
-                // over.draw_screen();
-                // over.draw_no();
-                // over.draw_yes();
+                over.draw_screen();
+                over.draw_no();
+                over.draw_yes();
                 break;
             }
             default:break;
